@@ -54,4 +54,4 @@ And let's run pytest again too.
 $ pytest
 ```
 
-This time we got a failure
+This time we got a failure, as expected!
