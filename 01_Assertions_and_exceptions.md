@@ -1,9 +1,7 @@
 ## Assertions
 
 An `assert` statement allows us to check whether a particular condition
-is true.
-
-If we assert something true, then nothing happens.
+is true. If we assert something true, then nothing happens.
 
 ```pycon
 >>> assert True
@@ -17,6 +15,10 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 AssertionError
 ```
+
+We can use `assert` statements in a few ways. We could put them directly
+into code that we write 
+
 We can use this to test software.
 
 ```pycon
@@ -62,7 +64,7 @@ We can even add our own error messages.
 >>> raise ValueError("We can add error messages here too!")
 ```
 
-We can also handle exceptions
+We can also handle exceptions 
 
 ```pycon
 >>> x = 1
@@ -72,7 +74,7 @@ We can also handle exceptions
 ... except ZeroDivisionError:
 ...     print("Attempting to divide by zero.")
 ... else:
-...     print("")
+...     print("Not attempting to divide by zero")
 Attempting to divide by zero.
 ```
 
