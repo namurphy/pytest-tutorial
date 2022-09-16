@@ -31,8 +31,11 @@ Only one test was run.
 
 ### Marking tests as expected to fail
 
-Occasionally, we will end up writing tests for functionality that we 
-know is broken, but might not know how to fix it.
+Occasionally, we will end up having tests that we know are failing. The
+failing tests might be for functionality that still needs to be written,
+or perhaps for a bug that we know about but are not yet able to fix. 
+To mark a test as expected to fail, we can use the `pytest.mark.fail`
+decorator.
 
 ```python
 @pytest.mark.xfail(reason="The function isn't working.")
