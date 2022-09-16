@@ -64,7 +64,7 @@ We can even add our own error messages.
 >>> raise ValueError("We can add error messages here too!")
 ```
 
-We can also handle exceptions 
+We can also handle exceptions with `try` 
 
 ```pycon
 >>> x = 1
@@ -73,8 +73,10 @@ We can also handle exceptions
 ...     x / y
 ... except ZeroDivisionError:
 ...     print("Attempting to divide by zero.")
-... else:
-...     print("Not attempting to divide by zero")
+... else:  # will run if there is no exception
+...     print("Not attempting to divide by zero.")
+... finally:  # will always run
+...     print("All done!")
 Attempting to divide by zero.
 ```
 
