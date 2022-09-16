@@ -47,3 +47,5 @@ To see what command line options are available for pytest, we can run
 ```bash
 pytest --help
 ```
+
+There are a lot!
