@@ -40,10 +40,8 @@ middle.
     `tox` requires a configuration file that I find hard to edit.  
   - Running tests automagically with [GitHub Actions]
 * [Awesome `pytest`]: A curated list of awesome `pytest` resources
-* [Writing clean scientific software] by N. Murphy ← Updated slides from
-  my CfA tutorial in 2021 
-* [Python Testing with `pytest`] book and [Test and code podcast] by B.
-  Okken
+* [Writing clean scientific software]
+* [Python Testing with `pytest`] book and [Test and code] podcast
 
 ## Contact information
 
