@@ -19,7 +19,7 @@ False
 ```
 
 The issue is that there is a very slight difference at the level of
-machine precision.
+machine precision.  
 
 ```pycon
 >>> 0.1 + 0.2 - 0.3
@@ -36,17 +36,41 @@ True
 >>> assert np.isclose(0.1 + 0.2, 0.3)
 ```
 
-We can also specify how close the numbers have to be with each other
+We can also specify how close the numbers have to be to each other using
+the `atol` and `rtol` keywords.  The `atol` keyword specifies the
+absolute tolerance, i.e. the maximum allowed absolute difference between
+the two values for them to compare as "close." The following line
+returns `True` because `10.0` and `11.0` have an  absolute  difference
+of ≤ 1.  
 
-We can also specify a relative tolerance with `rtol` and an absolute
-tolerance with `atol`.
 
 ```pycon
->>> np.isclose(0.5, 5.0001, rtol=1e-4)
-False
->>> np.isclose(1, 1.0001, atol=1e-3)
+>>> np.isclose(10.0, 11.0, atol=1)
 True
 ```
+
+If we switch it to `atol=0.99`, it becomes `False`.
+
+```pycon
+>>> np.isclose(10.0, 11.0, atol=0.99)
+False
+```
+
+Similarly, we can specify the relative difference between the two 
+numbers using the `rtol` keyword.
+
+```pycon
+>>> np.isclose(10.0, 11.0, rtol=0.1)
+True
+>>> np.isclose(10.0, 11.0, rtol=0.09)
+False
+```
+
+The docstring for [`numpy.isclose`] specifies the defaults for `atol`
+and `rtol`. When we compare numbers with magnitudes that are 𝒪(1), the
+default values for `atol` and `rtol` are typically fine. When we compare
+numbers with magnitudes that are ≪1 or ≫1, then we want to specify the
+numbers more carefully.  
 
 To compare lists and arrays, we can use [`numpy.allclose`].
 
