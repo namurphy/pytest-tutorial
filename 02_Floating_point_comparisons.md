@@ -90,7 +90,7 @@ False
 ```
 
 What's happening here is that NumPy is following the [IEEE 754] standard
-for floating point math.  We can use `numpy.isclose` for this too, as
+for floating point math.  We can use [`numpy.isclose`] for this too, as
 long as we set the `equal_nan` keyword to `True`.
 
 ```pycon
