@@ -1,3 +1,3 @@
 # pytest-tutorial
 
-1. [Assertions and exceptions](./O1_Assertions_and_exceptions.md)
+1. [Assertions and exceptions](./01_Assertions_and_exceptions.md)
