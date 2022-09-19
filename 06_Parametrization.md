@@ -48,15 +48,6 @@ Now let's run pytest.
 
 ```bash
 $ pytest
-======================================= test session starts ========================================
-platform linux -- Python 3.10.4, pytest-7.1.3, pluggy-1.0.0
-rootdir: /home/namurphy/Projects/pytest-tutorial/project
-plugins: datadir-1.3.1, forked-1.4.0, hypothesis-6.54.5, regressions-2.3.1, xdist-2.5.0, anyio-3.6.1
-collected 6 items                                                                                  
-
-test_double.py ......                                                                        [100%]
-
-======================================== 6 passed in 0.02s =========================================
 ```
 
 The six dots mean that everything passed.
