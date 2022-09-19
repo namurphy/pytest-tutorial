@@ -17,9 +17,8 @@ AssertionError
 ```
 
 We can use `assert` statements in a few ways. We could put them directly
-into code that we write 
-
-We can use this to test software.
+into code that we write in order to make sure that a particular 
+condition is true. We can also use `assert` statements to test software.
 
 ```pycon
 >>> assert 1 == 1
