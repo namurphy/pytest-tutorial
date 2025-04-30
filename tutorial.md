@@ -1,7 +1,7 @@
 # pytest tutorial
 
 To get ready for this tutorial, please follow these instructions to [install `uv`].
-We won't use `uv` much, but it'll make a few things a lot easier.
+Using `uv` will make a few things easier.
 
 [install `uv`]: https://docs.astral.sh/uv/getting-started/installation
 
@@ -24,17 +24,17 @@ This command will print out a command to activate this environment.
 For Linux, this will be:
 
 ```bash
-source .venv/bin/activate  # works on Linux; will differ for macOS & Windows
+source .venv/bin/activate  # for Linux; will differ for macOS & Windows
 ```
+
+> [!TIP]
+> Comments in a Unix terminal begin with `#`.
 
 Then let's install some packages:
 
 ```bash
 uv pip install pytest numpy
 ```
-
-> [!TIP]
-> Comments in a Unix terminal begin with `#`.
 
 Let's start from within Python! (If you'd prefer, you can use a Jupyter notebook.)
 
@@ -66,32 +66,30 @@ into code that we write in order to make sure that a particular
 condition is true. We can also use `assert` statements to test software.
 -->
 
-We can use `assert` to test whether two or more objects
-are equal (or unequal) to each other.
+We can use `assert` to compare objects.
 
 ```pycon
 >>> assert 1 == 2
-False
 >>> assert 1 != 2
-True
-```
-
-Let's create a failing test.
-
-```pycon
+>>> assert 1 < 2
 >>> assert 6 * 9 == 42
 ```
 
-We can also add an error message for when the assertion is false.
+We can add an error message for when the assertion is false.
 
 ```pycon
 >>> assert [1, 2] == [3, 4], "List contents are not equal."
 ```
 
+> [!NOTE]
+> In Python, a `list` is represented created using square brackets to
+> contain zero or more objects. We can add or remove items from
+> a `list` even after it is created. 
+
 ## Truthiness in Python
 
-We can use `bool()` to tell whether Python considers something truthy
-or falsey.
+We can use `bool()` to tell whether Python considers something "truthy"
+or "falsey".
 
 ```pycon
 >>> bool(1)
@@ -104,9 +102,8 @@ True
 False
 ```
 
-> [!IMPORTANT]
-> Empty collections are considered falsey,
-> while non-empty collections are considered truthy.
+Strings and lists get treated as true if they contain items, 
+and false if they are empty.  
 
 Let's try empty and non-empty lists (created using square brackets).
 
@@ -119,14 +116,14 @@ True
 
 ## Exceptions
 
-An exception is an error that happens when Python code is being executed.
+An **exception** is an error that happens when Python code is being executed.
 An example is a `ZeroDivisionError`.
 
 ```pycon
 >>> 1 / 0
 ```
 
-We can raise our own exceptions,
+We can raise our own exceptions with `raise`, like a `ValueError`,
 
 ```pycon
 >>> raise ValueError
@@ -135,11 +132,15 @@ Traceback (most recent call last):
 ValueError
 ```
 
-and include error messages.
+and include error messages:
 
 ```pycon
 >>> raise ValueError("We can add error messages here too!")
 ```
+
+> [!TIP]
+> We can use `try` and `except` blocks in Python 
+> [to gracefully handle errors](https://www.w3schools.com/python/python_try_except.asp).
 
 <!--
 We can also handle exceptions with `try` 
@@ -178,16 +179,15 @@ do comparisons with the `==` operator.
 >>> assert 0.1 + 0.2 == 0.3
 ```
 
-The problem is that there is a very slight difference at the level of
-machine precision.
+Because decimals are stored as binary floating point numbers in Python,
+there is a very slight difference at the level of _machine precision_.
 
 ```pycon
 >>> 0.1 + 0.2 - 0.3
 5.551115123125783e-17
 ```
 
-We can use [`numpy.isclose`] when we are trying to compare floating
-point numbers that might be slightly different.
+Use [`numpy.isclose`] to compare floating point numbers.
 
 ```pycon
 >>> import numpy as np
@@ -196,12 +196,12 @@ True
 >>> assert np.isclose(0.1 + 0.2, 0.3)
 ```
 
-The `atol` keyword to `numpy.isclose` specifies the
-**absolute tolerance**, i.e. the maximum allowed absolute difference between
-two values for them to compare as "close."
+The `atol` keyword argument to `numpy.isclose` specifies the
+**absolute tolerance**: the maximum allowed absolute difference between
+two values to be considered "close."
 
 The following line returns `True` because `10.0` and `11.0` have an
-absolute  difference of ≤ 1.
+absolute difference of ≤ 1.
 
 ```pycon
 >>> np.isclose(10.0, 11.0, atol=1.01)
@@ -225,6 +225,15 @@ True
 False
 ```
 
+This is my absolute favorite line of Python:
+
+```pycon
+>>> np.isclose(True, False, atol = True - False).
+True
+```
+
+`True` is treated as `1`, and `False` is treated as `0`.
+
 > [!IMPORTANT]
 > The docstring for [`numpy.isclose`] specifies the defaults for `atol`
 > and `rtol`. When we compare numbers with magnitudes that are significantly
@@ -239,12 +248,11 @@ To compare lists and arrays, we can use [`numpy.allclose`].
 False
 ```
 > [!TIP]
-> We can also use [`astropy.units.isclose`] and [`astropy.units.allclose`]
-> in order to compare [`astropy.units.Quantity`] objects with units.
+> Use [`astropy.units.isclose`] and [`astropy.units.allclose`]
+> to compare [`astropy.units.Quantity`] objects with units.
 
 <!--
 ### Comparisons between `Quantity` objects
-
 
 ```pycon
 >>> import astropy.units as u
@@ -262,39 +270,20 @@ We can also use [`assert_quantity_allclose`].
 ```
 -->
 
-
-<!--
 ### Comparing NaN values
 
-[`numpy.nan`] is an object that represents "not a number."
+[`numpy.nan`] is an object that represents "not a number". In NumPy 
+array operations, `nan` shows up when dividing `0` by `0`. 
 
-```pycon
->>> zeros = numpy.zeros(4)
->>> print(zeros)
->>> zeros / zeros
-```
-
-
-
-Many
-of the functions we write may encounter `numpy.nan` values. We should be careful though, because
-`numpy.nan` is not equal to itself.
+`nan` is not equal to itself. 🫠
 
 ```pycon
 >>> np.nan == np.nan
 False
 ```
--->
 
-<!--
-What's happening here is that NumPy is following the [IEEE 754] standard
-for floating point math.
--->
-<!--
-We can use [`numpy.isclose`] for this too if we set the `equal_nan` keyword to `True`.
-
-We can use [`numpy.isclose`] for this too, as
-long as we set the `equal_nan` keyword to `True`.
+To compare `nan` values with [`numpy.isclose`] or `numpy.allclose`,
+set the `equal_nan` keyword argument to `True`.
 
 ```pycon
 >>> np.isclose(np.nan, np.nan)
@@ -302,8 +291,6 @@ False
 >>> np.isclose(np.nan, np.nan, equal_nan=True)
 True
 ```
--->
-
 
 Now let's exit Python.
 
@@ -326,11 +313,11 @@ uv init double
 ```
 
 Let's enter the directory and see what's in it.
-If using PowerShell, use `dir` instead of `ls -A`.
+(If using PowerShell, use `dir` instead of `ls -A`.)
 
 ```bash
 cd double
-ls -A  # use dir in PowerShell
+ls -A
 ```
 
 Let's open `main.py` with your favorite plain text editor.  
@@ -356,10 +343,6 @@ Now let's create a file called `test_double.py`.
 nano test_double.py
 ```
 
-> [!NOTE]
-> The name of the file must begin with `test_` so that `pytest` knows
-> that it contains tests.
-
 In `test_double.py`, let's create a function called `test_doubling_one()`.
 
 ```python
@@ -367,12 +350,12 @@ import main
 
 
 def test_doubling_one():
-    assert double(1) == 2 
+    assert main.double(1) == 2 
 ```
 
-> [!NOTE]
-> The name of each test must also begin with `test_` so that `pytest`
-> treats it as a test.
+> [!IMPORTANT]
+> Begin each file and test name with `test_` so that `pytest` can find
+> tests.
 
 Back in the terminal, let's run `pytest`.
 
@@ -396,18 +379,17 @@ Let's run `pytest` again.
 pytest
 ```
 
-The `.F` indicates that the first test passed and the second test failed,
-as intended. Let's take a look at the error message. 
+The `.F` indicates that the first test passed and the second test failed. 
+Let's take a look at the error message.
 
-The first line says that in `test_double.py`, on line ∼8, there is a 
+The first line says that in `test_double.py`, on line ∼9, there is a 
 test called `test_that_fails` which failed.
 ```
-test_double.py:8: in test_that_fails
+test_double.py:9: in test_that_fails
 ````
 
-The next lines show what the left and right sides of the `assert`
-statement evaluated to, step-by-step (i.e., that `main.double(1)`
-evaluated to `2`).
+The next lines evaluate the left and right sides of the `assert` statement.
+On the left side, we see that `main.double(1)` → `2`.
 
 ```
     assert main.double(1) == 23790530
@@ -415,16 +397,83 @@ E   assert 2 == 23790530
 ```
 
 The last two lines include the _memory address_ of `main.double()`, which
-indicates where the function was stored in memory.
-Memory address information usually doesn't matter, but can be helpful 
-if we're working with `lambda` functions like `double = lambda x: 2 * x`.
+indicates where the function was stored in memory.  
+We can usually ignore this information.
 
 ```
 E    +  where 2 = <function double at 0x7f04c551ad40>(1)
 E    +    where <function double at 0x7f04c551ad40> = main.double
 ```
 
+> [!NOTE]
+> Memory addresses can be helpful if we're working with `lambda` functions,
+> like `double = lambda x: 2 * x`.
 
+### Skipping tests
+
+> [!NOTE]
+> A **decorator** is essentially a function that operates on (or "wraps") another function.
+> Decorators are denoted with `@`.
+
+We can use the `@pytest.mark.skip` decorator to skip a test.
+Let's add this to `test_double.py`.
+
+```python
+import pytest
+
+
+@pytest.mark.skip  
+def skip_this_test():
+    raise ValueError()
+```
+
+Running the test, we see that it is skipped.
+
+```bash
+pytest
+```
+
+### Marking tests as expected to fail
+
+We can mark a test as "expected to fail" with `@pytest.mark.xfail`. Let's try this in `test_double.py`.
+
+```python
+@pytest.mark.xfails
+def this_test_fails():
+    assert False
+```
+
+### Parameterizing tests
+
+So far, we've tested one case at a time. 
+The [`@pytest.mark.parametrize`](https://docs.pytest.org/en/stable/how-to/parametrize.html) decorator lets us 
+test multiple cases with one test.
+
+```python
+import main
+import pytest
+
+@pytest.mark.parametrize(
+    "argument, expected_result",
+    [
+        (1, 2),  # pair the argument with the expected result
+        (2, 4),
+        (4, 8),
+        (-1, -2),
+        (0, 0),
+        (500, 1000),
+        ("abc", "abcabc"),
+    ]
+)
+def test_double(argument, expected_result):
+    assert main.double(argument) == expected_result
+```
+
+Let's run this again.
+
+```bash
+pytest
+```
 
 ## Command line options
 
@@ -447,7 +496,7 @@ failed the last time that we ran the tests.  (If no tests failed, it
 will run all the tests.)
 
 ```bash
-$ pytest --last-failed
+pytest --last-failed
 ```
 
 ### Choosing which tests to run
@@ -456,26 +505,34 @@ We can use the `-k` flag for pytest to specify which tests we want run
 based on which substrings appear.  If we do:
 
 ```bash
-$ pytest -k one
+pytest -k test_that_fails
 ```
 
-then only `test_doubling_one` will be run because it's the only test
-that has `one` in its name. If we do:
-
-```bash
-$ pytest -k two
-```
-
-then we'll similarly run only the tests that have `two` in their name.
+then only `test_that_fails` will be run because it's the only test
+that has `one` in its name.
 
 ### Shortening the output report
 
 If we have a lot of tests and make a chance that results in multiple
-failure we can change the length of the traceback report that gets 
-shown.  We can make it short:
+failure we can change the length of the "traceback" report that gets 
+shown.  
+
+> [!NOTE]
+> A "traceback" is the full chain of errors that arose when an exception is raised. 
+
+> [!IMPORTANT]
+> Read tracebacks starting at the bottom and going up to identify where the error occurred.
+
+We can make the traceback short:
 
 ```bash
-$ pytest --tb=short
+pytest --tb=short
+```
+
+Or we can have no tracebacks at all.
+
+```bash
+pytest --tb=no
 ```
 
 ### Show local variables
@@ -500,6 +557,8 @@ variables that got defined.
 ```bash
 $ pytest --show-locals
 ```
+
+<!--
 
 We'll delete those two extra lines before moving on.## Markers
 
@@ -695,3 +754,16 @@ $ pytest
 ```
 
 And we see that pytest finds and runs the test, and it passes.
+-->
+
+
+## Testing best practices
+
+> [!TIP]
+> Keep (most) tests simple, and focused on one unit of behavior. 
+
+> [!TIP]
+> If code is hard to test, try rewriting it to make it easier to test.  For example, try writing short functions that do exactly one thing.
+
+> [!TIP]
+> Try writing tests first, and then writing code to get the function to pass.  This is called **test-driven development**.
