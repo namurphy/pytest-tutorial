@@ -1,9 +1,9 @@
 # Software testing with `pytest`
 
-`pytest` is the most commonly used software testing package with Python.
+[`pytest`](https://docs.pytest.org/en/stable/) is the most commonly used software testing package for Python.
 
-`pytest` makes it more straightforward to write simpler tests,
-while having enough advanced features for more complicated situations.
+`pytest` lets us write simple software tests without too much effort,
+while having enough advanced features for more in-depth tests.
 
 ## Installation
 
