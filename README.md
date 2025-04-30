@@ -1,7 +1,7 @@
 # pytest tutorial
 
 To get ready for this tutorial, please follow these instructions to [install `uv`].
-Using `uv` will make a few things easier.
+We won't use `uv` much, but it will make a few tasks easier.
 
 ## Getting set up
 
@@ -22,7 +22,7 @@ This command will print out a command to activate this environment.
 For Linux, this will be:
 
 ```bash
-source .venv/bin/activate  # for Linux; will differ for macOS & Windows
+source .venv/bin/activate  # will differ for macOS & Windows
 ```
 
 > [!TIP]
@@ -34,7 +34,7 @@ Then let's install some packages:
 uv pip install pytest numpy
 ```
 
-Let's start from within Python! (If you'd prefer, you can use a Jupyter notebook.)
+Let's open Python.
 
 ```bash
 python
@@ -137,7 +137,7 @@ and include error messages:
 ```
 
 > [!TIP]
-> We can use `try` and `except` blocks in Python
+> Use `try` and `except` blocks
 > [to gracefully handle errors](https://www.w3schools.com/python/python_try_except.asp).
 
 <!--
@@ -165,10 +165,15 @@ do comparisons with the `==` operator.
 
 ```pycon
 >>> assert 0.1 + 0.2 == 0.3
+Traceback (most recent call last):
+  File "<python-input-0>", line 1, in <module>
+    assert 0.1 + 0.2 == 0.3
+           ^^^^^^^^^^^^^^^^
+AssertionError
 ```
 
 Because decimals are stored as binary floating point numbers in Python,
-there is a very slight difference at the level of _machine precision_.
+there is a very slight difference at the level of _machine precision_. :robot:
 
 ```pycon
 >>> 0.1 + 0.2 - 0.3
