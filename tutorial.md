@@ -1,11 +1,51 @@
 # pytest tutorial
 
-To get ready for this, please install uv.  (ADD)
+To get ready for this tutorial, please follow these instructions to [install `uv`].
+We won't use `uv` much, but it'll make a few things a lot easier.
+
+[install `uv`]: https://docs.astral.sh/uv/getting-started/installation
+
+## Getting set up
+
+Let's create a directory to work in.
+
+```bash
+mkdir crane_pytest
+cd crane_pytest
+```
+
+Let's create a virtual environment:
+
+```bash
+uv venv
+```
+
+This command will print out a command to activate this environment.
+For Linux, this will be:
+
+```bash
+source .venv/bin/activate  # works on Linux; will differ for macOS & Windows
+```
+
+Then let's install some packages:
+
+```bash
+uv pip install pytest numpy
+```
+
+> [!TIP]
+> Comments in a Unix terminal begin with `#`.
+
+Let's start from within Python! (If you'd prefer, you can use a Jupyter notebook.)
+
+```bash
+python
+```
 
 ## Assertions
 
 An `assert` statement allows us to check whether a particular condition
-is true. If we assert something true, then nothing happens.
+is true. If we `assert` something true, then nothing happens.
 
 ```pycon
 >>> assert True
@@ -20,21 +60,29 @@ Traceback (most recent call last):
 AssertionError
 ```
 
+<!--
 We can use `assert` statements in a few ways. We could put them directly
-into code that we write in order to make sure that a particular 
+into code that we write in order to make sure that a particular
 condition is true. We can also use `assert` statements to test software.
+-->
+
+We can use `assert` to test whether two or more objects
+are equal (or unequal) to each other.
 
 ```pycon
->>> assert 1 == 1
+>>> assert 1 == 2
+False
+>>> assert 1 != 2
+True
 ```
 
-Now let's create a failing test.
+Let's create a failing test.
 
 ```pycon
 >>> assert 6 * 9 == 42
 ```
 
-We can also add an error message!
+We can also add an error message for when the assertion is false.
 
 ```pycon
 >>> assert [1, 2] == [3, 4], "List contents are not equal."
@@ -43,7 +91,7 @@ We can also add an error message!
 ## Truthiness in Python
 
 We can use `bool()` to tell whether Python considers something truthy
-or falsey.  
+or falsey.
 
 ```pycon
 >>> bool(1)
@@ -56,6 +104,19 @@ True
 False
 ```
 
+> [!IMPORTANT]
+> Empty collections are considered falsey,
+> while non-empty collections are considered truthy.
+
+Let's try empty and non-empty lists (created using square brackets).
+
+```pycon
+>>> bool( [] )
+False
+>>> bool( [1, 2, 3] )
+True
+```
+
 ## Exceptions
 
 An exception is an error that happens when Python code is being executed.
@@ -65,7 +126,7 @@ An example is a `ZeroDivisionError`.
 >>> 1 / 0
 ```
 
-We can also raise our own exceptions.
+We can raise our own exceptions,
 
 ```pycon
 >>> raise ValueError
@@ -74,7 +135,7 @@ Traceback (most recent call last):
 ValueError
 ```
 
-We can even add our own error messages.
+and include error messages.
 
 ```pycon
 >>> raise ValueError("We can add error messages here too!")
@@ -118,7 +179,7 @@ do comparisons with the `==` operator.
 ```
 
 The problem is that there is a very slight difference at the level of
-machine precision.  
+machine precision.
 
 ```pycon
 >>> 0.1 + 0.2 - 0.3
@@ -135,13 +196,12 @@ True
 >>> assert np.isclose(0.1 + 0.2, 0.3)
 ```
 
-We can also specify how close the numbers have to be to each other using
-the `atol` and `rtol` keywords.  The `atol` keyword specifies the
+The `atol` keyword to `numpy.isclose` specifies the
 **absolute tolerance**, i.e. the maximum allowed absolute difference between
-the two values for them to compare as "close." The following line
-returns `True` because `10.0` and `11.0` have an  absolute  difference
-of ≤ 1.  
+two values for them to compare as "close."
 
+The following line returns `True` because `10.0` and `11.0` have an
+absolute  difference of ≤ 1.
 
 ```pycon
 >>> np.isclose(10.0, 11.0, atol=1.01)
@@ -155,7 +215,7 @@ If we switch it to `atol=0.99`, it becomes `False`.
 False
 ```
 
-Similarly, we can specify the **relative tolerance** between the two 
+Similarly, we can specify the **relative tolerance** between the two
 numbers using the `rtol` keyword.
 
 ```pycon
@@ -165,14 +225,10 @@ True
 False
 ```
 
-ADD EQUATION FOR RTOL & ATOL
-
 > [!IMPORTANT]
 > The docstring for [`numpy.isclose`] specifies the defaults for `atol`
-> and `rtol`. When we compare numbers with magnitudes that are 𝒪(1), the
-> default values for `atol` and `rtol` are typically fine. When we compare
-> numbers with magnitudes that are ≪1 or ≫1, then we want to specify the
-> numbers more carefully.  
+> and `rtol`. When we compare numbers with magnitudes that are significantly
+> larger or smaller than one, we will need to specify numbers more carefully.
 
 To compare lists and arrays, we can use [`numpy.allclose`].
 
@@ -182,7 +238,6 @@ To compare lists and arrays, we can use [`numpy.allclose`].
 >>> assert np.allclose(ones, twos)
 False
 ```
-
 > [!TIP]
 > We can also use [`astropy.units.isclose`] and [`astropy.units.allclose`]
 > in order to compare [`astropy.units.Quantity`] objects with units.
@@ -208,20 +263,37 @@ We can also use [`assert_quantity_allclose`].
 -->
 
 
+<!--
 ### Comparing NaN values
 
-[`numpy.nan`] is a floating point representation of "Not a Number." Many
-of the functions we write may encounter [`numpy.nan`] values from time
-to time and should be tested. We should be careful though, because
-[`numpy.nan`] is not equal to itself.
+[`numpy.nan`] is an object that represents "not a number."
+
+```pycon
+>>> zeros = numpy.zeros(4)
+>>> print(zeros)
+>>> zeros / zeros
+```
+
+
+
+Many
+of the functions we write may encounter `numpy.nan` values. We should be careful though, because
+`numpy.nan` is not equal to itself.
 
 ```pycon
 >>> np.nan == np.nan
 False
 ```
+-->
 
+<!--
 What's happening here is that NumPy is following the [IEEE 754] standard
-for floating point math.  We can use [`numpy.isclose`] for this too, as
+for floating point math.
+-->
+<!--
+We can use [`numpy.isclose`] for this too if we set the `equal_nan` keyword to `True`.
+
+We can use [`numpy.isclose`] for this too, as
 long as we set the `equal_nan` keyword to `True`.
 
 ```pycon
@@ -230,127 +302,130 @@ False
 >>> np.isclose(np.nan, np.nan, equal_nan=True)
 True
 ```
+-->
+
 
 Now let's exit Python.
 
 ```pycon
->>> exit()
+>>> exit
 ```
 
-## Creating and running a test
+## Let's write a software test
 
-INSTALLED ABOVE?
-
-First of all, let's install and upgrade pytest. To use `pip` we can do:
+Let's make sure `pytest` is installed.
 
 ```bash
-$ pip install -U pytest
+pytest --version
 ```
 
-Let's make sure it installed okay. 
+Let's initialize a Python project.
 
 ```bash
-$ pytest --version
-pytest 8.3.5
+uv init double
 ```
 
-Now let's create and enter a directory to work in.
+Let's enter the directory and see what's in it.
+If using PowerShell, use `dir` instead of `ls -A`.
 
 ```bash
-mkdir pytest_tutorial
-cd pytest_tutorial
+cd double
+ls -A  # use dir in PowerShell
 ```
 
-Now let's create a file called `test_double.py`.  It's important that the
-name begin with `test_` since that is how `pytest` will know that it
-includes tests to be run.  
+Let's open `main.py` with your favorite plain text editor.  
+I'll use `nano` since it is a common text editor in a terminal.
 
-In `test_double.py`, let's create a function called `double`, and 
-introduce an intentional error.  Let's also write a test called 
-`test_doubling_one` that is designed to pass even with the error that
-we purposefully introduced. 
+```bash
+nano main.py
+```
+
+At the top of `main.py`, let's define a function called `double()`.
 
 ```python
-def double(n):
-    """Double the argument."""
-    return n + 1  # intentional error
+def double(x):
+    return 2 * x
+```
+
+Save the file and exit. (If using `nano`, press ctrl-x to exit, followed
+by `y` and enter to save.)
+
+Now let's create a file called `test_double.py`.
+
+```bash
+nano test_double.py
+```
+
+> [!NOTE]
+> The name of the file must begin with `test_` so that `pytest` knows
+> that it contains tests.
+
+In `test_double.py`, let's create a function called `test_doubling_one()`.
+
+```python
+import main
+
 
 def test_doubling_one():
-    """Test running double on one."""
-    assert double(1) == 2  # will pass even with intentional error
+    assert double(1) == 2 
 ```
 
-Again, the name is important. Its name starts with `test_` so that 
-`pytest` will know that it's a test that it  should run. 
+> [!NOTE]
+> The name of each test must also begin with `test_` so that `pytest`
+> treats it as a test.
 
-Let's go back to our terminal and run `pytest`.
+Back in the terminal, let's run `pytest`.
 
 ```bash
-$ pytest
-============================== test session starts ===============================
-platform linux -- Python 3.9.12, pytest-7.1.3, pluggy-1.0.0
-rootdir: /home/namurphy/pytest_tutorial
-plugins: datadir-1.3.1, forked-1.4.0, xonsh-0.12.6, anyio-3.6.1, xdist-2.5.0
-collected 1 item                                                                 
-
-test_double.py .                                                           [100%]
-
-=============================== 1 passed in 0.02s ================================
+pytest
 ```
 
-The output shows the platform, the versions of Python and other packages
-that we used, the directory the tests are running in, and possibly a set
-of plugins. The output shows that it collected one item (i.e., one test)
-from `test_double.py`. The `.` next to `test_double.py` means that the
-test passed.
+In the output next to `test_double.py`, there should be a `.` which 
+indicates that a test was run and it passed.
 
-Now let's add another test that we know will catch the error that we put
-into `double`.
+Let's see what happens when we add a test that fails. 
 
 ```python
-def test_doubling_two():
-    """Test running double on two."""
-    assert double(2) == 4
+def test_that_fails():
+    assert double(1) == 347598234789433547903497
 ```
 
-And let's run pytest again.
+Let's run `pytest` again.
 
 ```bash
-$ pytest
-============================== test session starts ===============================
-platform linux -- Python 3.9.12, pytest-7.1.3, pluggy-1.0.0
-rootdir: /home/namurphy/pytest_tutorial
-plugins: datadir-1.3.1, forked-1.4.0, xonsh-0.12.6, anyio-3.6.1, xdist-2.5.0
-collected 2 items                                                                
-
-test_double.py .F                                                          [100%]
-
-==================================== FAILURES ====================================
-_______________________________ test_doubling_two ________________________________
-
-    def test_doubling_two():
-        """Test running double on two."""
->       assert double(2) == 4
-E       assert 3 == 4
-E        +  where 3 = double(2)
-
-test_double.py:10: AssertionError
-============================ short test summary info =============================
-FAILED test_double.py::test_doubling_two - assert 3 == 4
-========================== 1 failed, 1 passed in 0.11s ===========================
-
+pytest
 ```
 
-This time we got a failure, as expected!
+The `.F` indicates that the first test passed and the second test failed,
+as intended. Let's take a look at the error message. 
 
-Now it says it collected two items.  The `.` means that the first test
-passed, and the `F` means that the second test failed. It then gives a
-failure report. It shows the `assert` statement, and puts in the values
-for the left and right sides of the equality comparison. This diagnostic
-information helps us figure out what happened.
+The first line says that in `test_double.py`, on line ∼8, there is a 
+test called `test_that_fails` which failed.
+```
+test_double.py:8: in test_that_fails
+````
 
-We're going to keep one test passing and one test failing as we move
-onto the next section.
+The next lines show what the left and right sides of the `assert`
+statement evaluated to, step-by-step (i.e., that `main.double(1)`
+evaluated to `2`).
+
+```
+    assert main.double(1) == 23790530
+E   assert 2 == 23790530
+```
+
+The last two lines include the _memory address_ of `main.double()`, which
+indicates where the function was stored in memory.
+Memory address information usually doesn't matter, but can be helpful 
+if we're working with `lambda` functions like `double = lambda x: 2 * x`.
+
+```
+E    +  where 2 = <function double at 0x7f04c551ad40>(1)
+E    +    where <function double at 0x7f04c551ad40> = main.double
+```
+
+
+
 ## Command line options
 
 ### Getting help
