@@ -359,7 +359,7 @@ pytest
 In the output next to `test_double.py`, the `.` 
 indicates that a test was run and passed. :broccoli:
 
-Let's see what happens when we add a test that fails.
+Let's see what happens we add the following test to `test_double.py`.
 
 ```python
 def test_that_fails():
@@ -375,14 +375,14 @@ pytest
 The `.F` indicates that the first test passed and the second test failed.
 Let's take a look at the error message.
 
-The first line says that in `test_double.py`, on line ∼9, there is a
-test called `test_that_fails` which failed.
+The first line below indicates that the failing test is named 
+`test_that_fails`, and is located on line 9 of `test_double.py`.
 
 ```
 test_double.py:9: in test_that_fails
 ```
 
-The next lines evaluate the left and right sides of the `assert` statement.
+The next lines evaluate and follow the left and right sides of the `assert` statement.
 On the left side, we see that `main.double(1)` → `2`.
 
 ```
@@ -406,8 +406,10 @@ E    +    where <function double at 0x7f04c551ad40> = main.double
 ### Skipping tests
 
 > [!NOTE]
-> A **decorator** is essentially a function that operates on (or "wraps") another function.
-> Decorators are denoted with `@`.
+> A **decorator** is essentially a function that operates on (or _wraps_) another function.
+> We can use decorators to change the behavior of a function
+> or change how the function is invoked.
+> Decorators used on functions are denoted with `@`.
 
 We can use the `@pytest.mark.skip` decorator to skip a test.
 Let's add this to `test_double.py`.
@@ -415,13 +417,12 @@ Let's add this to `test_double.py`.
 ```python
 import pytest
 
-
 @pytest.mark.skip  
 def skip_this_test():
     raise ValueError()
 ```
 
-Running the test, we see that it is skipped.
+Running the test, we see that it is skipped (with an `S`).
 
 ```bash
 pytest
@@ -436,6 +437,14 @@ We can mark a test as "expected to fail" with `@pytest.mark.xfail`. Let's try th
 def this_test_fails():
     assert False
 ```
+
+If we run `pytest`:
+
+```bash
+pytest
+```
+
+then we see that the failing test is marked with an `X`.
 
 ### Parameterizing tests
 
@@ -456,18 +465,20 @@ import pytest
         (-1, -2),
         (0, 0),
         (500, 1000),
-        ("abc", "abcabc"),
+        (1, 561),  # intentional failure
     ]
 )
 def test_double(argument, expected_result):
     assert main.double(argument) == expected_result
 ```
 
-Let's run this again.
+Let's run `pytest` again.
 
 ```bash
 pytest
 ```
+
+The output from this test will be like `......F` indicating that seven tests were run and the last one failed, as intended.
 
 ## Command line options
 
@@ -503,7 +514,7 @@ pytest -k test_that_fails
 ```
 
 then only `test_that_fails` will be run because it's the only test
-that has `one` in its name.
+that has `test_that_fails` in its name.
 
 ### Shortening the output report
 
@@ -523,27 +534,17 @@ We can make the traceback short:
 pytest --tb=short
 ```
 
-Or we can have no tracebacks at all.
+Or we can have no tracebacks at all. In this case, only the summary appears.
 
 ```bash
 pytest --tb=no
 ```
 
+
 ### Show local variables
 
 We can also tell pytest to show us the values of different locally
 defined variables in the test.
-
-Let's update `test_double` to include two extra lines for defining some
-variables.
-
-```python
-def test_doubling_two():
-    """Test running double on two."""
-    x = 1
-    y = 2
-    assert double(2) == 4
-```
 
 Then we can use `--show-locals` to show us the values of each of the
 variables that got defined.
