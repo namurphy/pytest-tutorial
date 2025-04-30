@@ -3,8 +3,6 @@
 To get ready for this tutorial, please follow these instructions to [install `uv`].
 Using `uv` will make a few things easier.
 
-[install `uv`]: https://docs.astral.sh/uv/getting-started/installation
-
 ## Getting set up
 
 Let's create a directory to work in.
@@ -84,7 +82,7 @@ We can add an error message for when the assertion is false.
 > [!NOTE]
 > In Python, a `list` is represented created using square brackets to
 > contain zero or more objects. We can add or remove items from
-> a `list` even after it is created. 
+> a `list` even after it is created.
 
 ## Truthiness in Python
 
@@ -102,8 +100,8 @@ True
 False
 ```
 
-Strings and lists get treated as true if they contain items, 
-and false if they are empty.  
+Strings and lists get treated as true if they contain items,
+and false if they are empty.
 
 Let's try empty and non-empty lists (created using square brackets).
 
@@ -139,7 +137,7 @@ and include error messages:
 ```
 
 > [!TIP]
-> We can use `try` and `except` blocks in Python 
+> We can use `try` and `except` blocks in Python
 > [to gracefully handle errors](https://www.w3schools.com/python/python_try_except.asp).
 
 <!--
@@ -161,16 +159,6 @@ Attempting to divide by zero.
 -->
 
 ## Floating point comparisons
-
-[`numpy.isclose`]: https://numpy.org/doc/stable/reference/generated/numpy.isclose.html
-[`numpy.allclose`]: https://numpy.org/doc/stable/reference/generated/numpy.allclose.html
-[`numpy.nan`]: https://numpy.org/doc/stable/reference/constants.html#numpy.nan
-
-[`astropy.units.Quantity`]: https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html
-[`astropy.units.isclose`]: https://docs.astropy.org/en/stable/api/astropy.units.isclose.html
-[`astropy.units.allclose`]: https://docs.astropy.org/en/stable/api/astropy.units.allclose.html
-
-[`assert_quantity_allclose`]: https://docs.astropy.org/en/latest/api/astropy.tests.helper.assert_quantity_allclose.html
 
 Floating point comparisons are fraught with peril, in particular if we
 do comparisons with the `==` operator.
@@ -247,6 +235,7 @@ To compare lists and arrays, we can use [`numpy.allclose`].
 >>> assert np.allclose(ones, twos)
 False
 ```
+
 > [!TIP]
 > Use [`astropy.units.isclose`] and [`astropy.units.allclose`]
 > to compare [`astropy.units.Quantity`] objects with units.
@@ -272,8 +261,8 @@ We can also use [`assert_quantity_allclose`].
 
 ### Comparing NaN values
 
-[`numpy.nan`] is an object that represents "not a number". In NumPy 
-array operations, `nan` shows up when dividing `0` by `0`. 
+[`numpy.nan`] is an object that represents "not a number". In NumPy
+array operations, `nan` shows up when dividing `0` by `0`.
 
 `nan` is not equal to itself. 🫠
 
@@ -320,7 +309,7 @@ cd double
 ls -A
 ```
 
-Let's open `main.py` with your favorite plain text editor.  
+Let's open `main.py` with your favorite plain text editor.\
 I'll use `nano` since it is a common text editor in a terminal.
 
 ```bash
@@ -363,10 +352,10 @@ Back in the terminal, let's run `pytest`.
 pytest
 ```
 
-In the output next to `test_double.py`, there should be a `.` which 
+In the output next to `test_double.py`, there should be a `.` which
 indicates that a test was run and it passed.
 
-Let's see what happens when we add a test that fails. 
+Let's see what happens when we add a test that fails.
 
 ```python
 def test_that_fails():
@@ -379,14 +368,15 @@ Let's run `pytest` again.
 pytest
 ```
 
-The `.F` indicates that the first test passed and the second test failed. 
+The `.F` indicates that the first test passed and the second test failed.
 Let's take a look at the error message.
 
-The first line says that in `test_double.py`, on line ∼9, there is a 
+The first line says that in `test_double.py`, on line ∼9, there is a
 test called `test_that_fails` which failed.
+
 ```
 test_double.py:9: in test_that_fails
-````
+```
 
 The next lines evaluate the left and right sides of the `assert` statement.
 On the left side, we see that `main.double(1)` → `2`.
@@ -397,7 +387,7 @@ E   assert 2 == 23790530
 ```
 
 The last two lines include the _memory address_ of `main.double()`, which
-indicates where the function was stored in memory.  
+indicates where the function was stored in memory.\
 We can usually ignore this information.
 
 ```
@@ -445,8 +435,8 @@ def this_test_fails():
 
 ### Parameterizing tests
 
-So far, we've tested one case at a time. 
-The [`@pytest.mark.parametrize`](https://docs.pytest.org/en/stable/how-to/parametrize.html) decorator lets us 
+So far, we've tested one case at a time.
+The [`@pytest.mark.parametrize`](https://docs.pytest.org/en/stable/how-to/parametrize.html) decorator lets us
 test multiple cases with one test.
 
 ```python
@@ -490,9 +480,9 @@ likely to use.
 
 ### Running only the tests that failed last time
 
-If we have a bunch of tests or tests that take a long time to run, we 
-can use the ``--last-failed`` option which will run only the tests that
-failed the last time that we ran the tests.  (If no tests failed, it
+If we have a bunch of tests or tests that take a long time to run, we
+can use the `--last-failed` option which will run only the tests that
+failed the last time that we ran the tests. (If no tests failed, it
 will run all the tests.)
 
 ```bash
@@ -502,7 +492,7 @@ pytest --last-failed
 ### Choosing which tests to run
 
 We can use the `-k` flag for pytest to specify which tests we want run
-based on which substrings appear.  If we do:
+based on which substrings appear. If we do:
 
 ```bash
 pytest -k test_that_fails
@@ -514,11 +504,11 @@ that has `one` in its name.
 ### Shortening the output report
 
 If we have a lot of tests and make a chance that results in multiple
-failure we can change the length of the "traceback" report that gets 
-shown.  
+failure we can change the length of the "traceback" report that gets
+shown.
 
 > [!NOTE]
-> A "traceback" is the full chain of errors that arose when an exception is raised. 
+> A "traceback" is the full chain of errors that arose when an exception is raised.
 
 > [!IMPORTANT]
 > Read tracebacks starting at the bottom and going up to identify where the error occurred.
@@ -551,7 +541,7 @@ def test_doubling_two():
     assert double(2) == 4
 ```
 
-Then we can use `--show-locals` to show us the values of each of the 
+Then we can use `--show-locals` to show us the values of each of the
 variables that got defined.
 
 ```bash
@@ -756,14 +746,21 @@ $ pytest
 And we see that pytest finds and runs the test, and it passes.
 -->
 
-
 ## Testing best practices
 
 > [!TIP]
-> Keep (most) tests simple, and focused on one unit of behavior. 
+> Keep (most) tests simple, and focused on one unit of behavior.
 
 > [!TIP]
-> If code is hard to test, try rewriting it to make it easier to test.  For example, try writing short functions that do exactly one thing.
+> If code is hard to test, try rewriting it to make it easier to test. For example, try writing short functions that do exactly one thing.
 
 > [!TIP]
-> Try writing tests first, and then writing code to get the function to pass.  This is called **test-driven development**.
+> Try writing tests first, and then writing code to get the function to pass. This is called **test-driven development**.
+
+[install `uv`]: https://docs.astral.sh/uv/getting-started/installation
+[`astropy.units.allclose`]: https://docs.astropy.org/en/stable/api/astropy.units.allclose.html
+[`astropy.units.isclose`]: https://docs.astropy.org/en/stable/api/astropy.units.isclose.html
+[`astropy.units.quantity`]: https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html
+[`numpy.allclose`]: https://numpy.org/doc/stable/reference/generated/numpy.allclose.html
+[`numpy.isclose`]: https://numpy.org/doc/stable/reference/generated/numpy.isclose.html
+[`numpy.nan`]: https://numpy.org/doc/stable/reference/constants.html#numpy.nan
