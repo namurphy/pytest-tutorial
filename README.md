@@ -1,4 +1,11 @@
-# pytest tutorial
+# Software testing with `pytest`
+
+`pytest` is the most commonly used software testing package with Python.
+
+`pytest` makes it more straightforward to write simpler tests,
+while having enough advanced features for more complicated situations.
+
+## Installation
 
 To get ready for this tutorial, please follow these instructions to [install `uv`].
 We won't use `uv` much, but it will make a few tasks easier.
