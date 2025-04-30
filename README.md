@@ -218,15 +218,6 @@ True
 False
 ```
 
-This is my absolute favorite line of Python:
-
-```pycon
->>> np.isclose(True, False, atol = True - False).
-True
-```
-
-`True` is treated as `1`, and `False` is treated as `0`.
-
 > [!IMPORTANT]
 > The docstring for [`numpy.isclose`] specifies the defaults for `atol`
 > and `rtol`. When we compare numbers with magnitudes that are significantly
