@@ -319,10 +319,13 @@ def double(x):
     return 2 * x
 ```
 
-Save the file and exit. (If using `nano`, press ctrl-x to exit, followed
-by `y` and enter to save.)
+Save the file and exit. 
 
-Now let's create a file called `test_double.py`.
+> [!TIP]
+> To exit `nano`, press ctrl-x.  
+> If prompted to save, press `y` and enter.
+
+Let's create `test_double.py`.
 
 ```bash
 nano test_double.py
@@ -342,14 +345,19 @@ def test_doubling_one():
 > Begin each file and test name with `test_` so that `pytest` can find
 > tests.
 
+> [!TIP]
+> Use the names of tests to document or describe what is being tested.
+> A long but understandable test name works better than a 
+> short but abbreviated name.
+
 Back in the terminal, let's run `pytest`.
 
 ```bash
 pytest
 ```
 
-In the output next to `test_double.py`, there should be a `.` which
-indicates that a test was run and it passed.
+In the output next to `test_double.py`, the `.` 
+indicates that a test was run and passed. :broccoli:
 
 Let's see what happens when we add a test that fails.
 
