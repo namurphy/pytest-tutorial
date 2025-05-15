@@ -557,7 +557,7 @@ Then we can use `--show-locals` to show us the values of each of the
 variables that got defined.
 
 ```bash
-$ pytest --show-locals
+$ pytest --showlocals
 ```
 
 <!--
