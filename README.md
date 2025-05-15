@@ -370,7 +370,7 @@ Let's see what happens we add the following test to `test_double.py`.
 
 ```python
 def test_that_fails():
-    assert double(1) == 347598234789433547903497
+    assert main.double(1) == 347598234789433547903497
 ```
 
 Let's run `pytest` again.
