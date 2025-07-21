@@ -275,12 +275,19 @@ False
 ```
 
 To compare `nan` values with [`numpy.isclose`] or `numpy.allclose`,
-set the `equal_nan` keyword argument to `True`.
+we can set the `equal_nan` keyword argument to `True`.
 
 ```pycon
 >>> np.isclose(np.nan, np.nan)
 False
 >>> np.isclose(np.nan, np.nan, equal_nan=True)
+True
+```
+
+Alternatively, we an use `numpy.isnan`.
+
+```pycon
+>>> np.isnan(np.nan)
 True
 ```
 
