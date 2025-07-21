@@ -15,8 +15,8 @@ We won't use `uv` much, but it will make a few tasks easier.
 Let's create a directory to work in.
 
 ```bash
-mkdir crane_pytest
-cd crane_pytest
+mkdir pytest_tutorial
+cd pytest_tutorial
 ```
 
 Let's create a virtual environment:
@@ -560,18 +560,17 @@ variables that got defined.
 $ pytest --showlocals
 ```
 
-<!--
-
-We'll delete those two extra lines before moving on.## Markers
+## Markers
 
 [decorators]: https://docs.python.org/3/glossary.html#term-decorator
 
 There are a bunch of [decorators] in `pytest` that we can use to mark
-tests.  These markers can tell `pytest` to do a variety of things 
+tests.
 
-A decorator is in its essence, a function that operates on a function,
-where we wrap one function around another in order to modify its
-behavior.  Decorators are denoted with the `@` symbol.
+> [!NOTE]
+> A decorator is essentially a function that operates on a function,
+> where we _wrap_ one function around another in order to modify its
+> behavior.  Decorators are denoted with the `@` symbol.
 
 ### Skipping tests
 
@@ -615,6 +614,7 @@ $ pytest
 
 Both tests were run, but the failing test is marked with an `X` since
 it was expected to fail.
+
 ## Test parametrization
 
 From the previous section, `test_double.py` is currently this:
@@ -756,7 +756,7 @@ $ pytest
 ```
 
 And we see that pytest finds and runs the test, and it passes.
--->
+
 
 ## Testing best practices
 
