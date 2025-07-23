@@ -422,7 +422,18 @@ E    +    where <function double at 0x7f04c551ad40> = main.double
 
 > [!NOTE]
 > Memory addresses can be helpful if we're working with `lambda` functions,
-> like `triple = lambda x: 3 * x`.
+> like `quadruple = lambda x: 4 * x`.
+
+## Testing best practices
+
+> [!TIP]
+> Keep unit tests short and focused on a single behavior.  
+
+> [!TIP]
+> If code is hard to test, try rewriting it to make it easier to test. For example, try writing short functions that do exactly one thing.
+
+> [!TIP]
+> Try writing tests first, and then writing code to get the function to pass. This is called **test-driven development**.
 
 ## Markers
 
@@ -783,16 +794,6 @@ And we see that pytest finds and runs the test, and it passes.
 
 -->
 
-## Testing best practices
-
-> [!TIP]
-> Keep (most) tests simple, and focused on one unit of behavior.
-
-> [!TIP]
-> If code is hard to test, try rewriting it to make it easier to test. For example, try writing short functions that do exactly one thing.
-
-> [!TIP]
-> Try writing tests first, and then writing code to get the function to pass. This is called **test-driven development**.
 
 [install `uv`]: https://docs.astral.sh/uv/getting-started/installation
 [`astropy.units.allclose`]: https://docs.astropy.org/en/stable/api/astropy.units.allclose.html
