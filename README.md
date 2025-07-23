@@ -424,6 +424,8 @@ E    +    where <function double at 0x7f04c551ad40> = main.double
 > Memory addresses can be helpful if we're working with `lambda` functions,
 > like `triple = lambda x: 3 * x`.
 
+## Markers
+
 ### Skipping tests
 
 > [!NOTE]
@@ -439,7 +441,7 @@ Let's add this to `test_double.py`.
 import pytest
 
 @pytest.mark.skip
-def skip_this_test():
+def test_to_be_skipped():
     raise ValueError()
 ```
 
