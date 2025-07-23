@@ -22,7 +22,7 @@ cd pytest_tutorial
 Let's create a virtual environment:
 
 ```bash
-uv venv
+uv venv --python 3.13
 ```
 
 This command will print out a command to activate this environment.
