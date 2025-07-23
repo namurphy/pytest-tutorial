@@ -340,10 +340,10 @@ def double(x):
     return 2 * x
 ```
 
-Save the file and exit. 
+Save the file and exit.
 
 > [!TIP]
-> To exit `nano`, press ctrl-x.  
+> To exit `nano`, press ctrl-x.
 > If prompted to save, press `y` and enter.
 
 Let's create `test_double.py`.
@@ -359,7 +359,7 @@ import main
 
 
 def test_doubling_one():
-    assert main.double(1) == 2 
+    assert main.double(1) == 2
 ```
 
 > [!IMPORTANT]
@@ -368,7 +368,7 @@ def test_doubling_one():
 
 > [!TIP]
 > Use the names of tests to document or describe what is being tested.
-> A long but understandable test name works better than a 
+> A long but understandable test name works better than a
 > short but abbreviated name.
 
 Back in the terminal, let's run `pytest`.
@@ -377,7 +377,7 @@ Back in the terminal, let's run `pytest`.
 pytest
 ```
 
-In the output next to `test_double.py`, the `.` 
+In the output next to `test_double.py`, the `.`
 indicates that a test was run and passed. :broccoli:
 
 Let's see what happens we add the following test to `test_double.py`.
@@ -396,7 +396,7 @@ pytest
 The `.F` indicates that the first test passed and the second test failed.
 Let's take a look at the error message.
 
-The first line below indicates that the failing test is named 
+The first line below indicates that the failing test is named
 `test_that_fails`, and is located on line 9 of `test_double.py`.
 
 ```
@@ -411,9 +411,9 @@ On the left side, we see that `main.double(1)` → `2`.
 E   assert 2 == 23790530
 ```
 
-The last two lines include the _memory address_ of `main.double()`, which
-indicates where the function was stored in memory.\
-We can usually ignore this information.
+The last two lines include the _memory address_ of `main.double()`,
+which indicates where the function was stored in memory. We can
+usually ignore this information.
 
 ```
 E    +  where 2 = <function double at 0x7f04c551ad40>(1)
@@ -422,12 +422,12 @@ E    +    where <function double at 0x7f04c551ad40> = main.double
 
 > [!NOTE]
 > Memory addresses can be helpful if we're working with `lambda` functions,
-> like `double = lambda x: 2 * x`.
+> like `triple = lambda x: 3 * x`.
 
 ### Skipping tests
 
 > [!NOTE]
-> A **decorator** is essentially a function that operates on (or _wraps_) another function.
+> A **decorator** is essentially a function that operates on or _wraps_ another function.
 > We can use decorators to change the behavior of a function
 > or change how the function is invoked.
 > Decorators used on functions are denoted with `@`.
@@ -438,12 +438,12 @@ Let's add this to `test_double.py`.
 ```python
 import pytest
 
-@pytest.mark.skip  
+@pytest.mark.skip
 def skip_this_test():
     raise ValueError()
 ```
 
-Running the test, we see that it is skipped (with an `S`).
+Running the test, we see that it is skipped (denoted by `S`).
 
 ```bash
 pytest
@@ -455,7 +455,7 @@ We can mark a test as "expected to fail" with `@pytest.mark.xfail`. Let's try th
 
 ```python
 @pytest.mark.xfails
-def this_test_fails():
+def test_that_intentionally_fails():
     assert False
 ```
 
@@ -466,6 +466,10 @@ pytest
 ```
 
 then we see that the failing test is marked with an `X`.
+
+> [!TIP]
+> Measure the length of variable names not by the number of characters,
+> but rather by the _time_ needed to understand what the variable means.
 
 ### Parameterizing tests
 
@@ -501,7 +505,7 @@ pytest
 
 The output from this test will be like `......F` indicating that seven tests were run and the last one failed, as intended.
 
-## Command line options
+## Command line options (if time)
 
 ### Getting help
 
@@ -574,6 +578,7 @@ variables that got defined.
 $ pytest --showlocals
 ```
 
+<!--
 ## Markers
 
 [decorators]: https://docs.python.org/3/glossary.html#term-decorator
@@ -606,6 +611,7 @@ $ pytest
 
 Only one test was run.
 
+
 ### Marking tests as expected to fail
 
 Occasionally, we will end up having tests that we know are failing. The
@@ -628,6 +634,8 @@ $ pytest
 
 Both tests were run, but the failing test is marked with an `X` since
 it was expected to fail.
+
+-->
 
 ## Test parametrization
 
