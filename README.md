@@ -606,7 +606,7 @@ def test_double():
 Then we can run pytest.
 
 ```bash
-$ pytest
+pytest
 ```
 
 Only one test was run.
@@ -629,13 +629,13 @@ def test_double():
 Then we can run pytest.
 
 ```bash
-$ pytest
+pytest
 ```
 
 Both tests were run, but the failing test is marked with an `X` since
 it was expected to fail.
 
--->
+
 
 ## Test parametrization
 
@@ -779,6 +779,7 @@ $ pytest
 
 And we see that pytest finds and runs the test, and it passes.
 
+-->
 
 ## Testing best practices
 
