@@ -19,23 +19,30 @@ mkdir pytest_tutorial
 cd pytest_tutorial
 ```
 
-Let's create a virtual environment:
+> [!NOTE]
+> A virtual environment is "an isolated space where you can work on
+> your Python projects, separately from your system-installed Python."
+
+Let's create a **virtual environment**:
 
 ```bash
 uv venv --python 3.13
 ```
 
-This command will print out a command to activate this environment.
-For Linux, this will be:
+The above command will print out the command to _activate_ the virtual
+environment.
 
 ```bash
-source .venv/bin/activate  # will differ for macOS & Windows
+source .venv/bin/activate  # bash, sh, zsh
+.venv/Scripts/activate  # PowerShell
+source .venv/bin/activate.fish  # fish
+source .venv/bin/activate.csh  # csh, tcsh
 ```
 
 > [!TIP]
 > Comments in a Unix terminal begin with `#`.
 
-Then let's install some packages:
+Let's install the packages that we will need:
 
 ```bash
 uv pip install pytest numpy
